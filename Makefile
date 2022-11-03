@@ -1,7 +1,7 @@
-install: # for first gitclone
+install: # Для первого git clone
 	poetry install
 
-build:
+build: #  Сборка пакета
 	poetry build
 
 publish:
