@@ -6,7 +6,8 @@ This is a second project for my hexlet studies.
 The project aims to show differences between different files.
 
 You can clone the repository with git@github.com:SovaDekster/python-project-50.git or <https://github.com/SovaDekster/python-project-50>
-For this programe you might need python = "^3.10" and prompt = "^0.4.1"
+
+For this program you might need python = "^3.10" and prompt = "^0.4.1"
 
 ## Команды
 
