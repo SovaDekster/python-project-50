@@ -9,7 +9,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install poetry
         run: |
-          pip install poetry
+          pip install poetry flake8 pytest
       - name: Install dependencies
         run: |
           make install
@@ -19,10 +19,16 @@ jobs:
       - name: Run tests
         run: |
           make check
-      - name: Code Coverage
-        uses: paambaati/codeclimate-action@v3.0.0
+      - name: Create Reporter
+        run: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          chmod +x ./cc-test-reporter
+          ./cc-test-reporter before-build
+      - name: Test
+        run: |
+        make test-coverage
+      - name: Sending Reporter
         env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        with:
-          coverageCommand: make test-coverage
-          debug: true
+          GITHUB_TOKEN: ${{ secrets.TEST_REPORTER_ID }}
+        run: |
+          ./cc-test-reporter after-build -r "$GITHUB_TOKEN"
