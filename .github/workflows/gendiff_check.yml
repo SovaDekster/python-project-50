@@ -7,10 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.10
       - name: install dependencies
         run: |
           pip install poetry flake8 pytest
@@ -20,7 +16,7 @@ jobs:
       - name: Code Coverage
         uses: paambaati/codeclimate-action@v3.0.0
         env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+          CC_TEST_REPORTER_ID: 8dd63d5e3f081b78f9f488bbf12df35269b8eaeb15307415653cf88c7dfa5008
         with:
           coverageCommand: make test-coverage
           debug: true
