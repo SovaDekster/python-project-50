@@ -7,11 +7,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+<<<<<<< HEAD
       - name: Install poetry
         run: |
           pip install poetry flake8 pytest
+=======
+>>>>>>> refs/remotes/origin/main
       - name: Install dependencies
         run: |
+          pip install poetry flake8 pytest
           make install
       - name: Run linter
         run: |
