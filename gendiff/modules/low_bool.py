@@ -7,4 +7,4 @@ def get_bool_to_low(file):
 
 
 if __name__ == '__main__':
-    get_bool_to_low(file)
+    get_bool_to_low(file)  # noqa F821

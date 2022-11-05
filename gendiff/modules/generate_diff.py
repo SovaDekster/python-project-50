@@ -35,4 +35,4 @@ def generate_diff(file1, file2):
 
 
 if __name__ == '__main__':
-    generate_diff(file1, file2)
+    generate_diff(file1, file2)  # noqa F821
