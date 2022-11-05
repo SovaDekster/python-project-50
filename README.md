@@ -1,5 +1,8 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/SovaDekster/python-project-50/workflows/hexlet-check/badge.svg)](https://github.com/SovaDekster/python-project-50/actions)
+[![.github/workflows/gendiff_check.yml](https://github.com/SovaDekster/python-project-50/actions/workflows/gendiff_check.yml/badge.svg)](https://github.com/SovaDekster/python-project-50/actions/workflows/gendiff_check.yml)
+[![Maintainability](https://api.codeclimate.com/v1/badges/e69743a95478e51f3d5d/maintainability)](https://codeclimate.com/github/SovaDekster/python-project-50/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/e69743a95478e51f3d5d/test_coverage)](https://codeclimate.com/github/SovaDekster/python-project-50/test_coverage)
 # Общее описание
 
 This is a second project for my hexlet studies.

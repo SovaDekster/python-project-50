@@ -1,13 +1,6 @@
 import json
 import itertools
-
-
-def get_bool_to_low(file):
-    for key, value in file.items():
-        if type(value) == bool:
-            value = str(value).lower()
-            file[key] = value
-    return file
+from gendiff.modules.low_bool import get_bool_to_low
 
 
 def set_common_and_difference(file1, file2):
@@ -29,14 +22,14 @@ def generate_diff(file1, file2):
 
     for key in sorted_files:
         if key in common and file1[key] == file2[key]:
-            diff += f'\n   {key}: {file1[key]}'
+            diff += f'\n    {key}: {file1[key]}'
         if key in common and file1[key] != file2[key]:
-            diff += f'\n - {key}: {file1[key]}'
-            diff += f'\n + {key}: {file2[key]}'
+            diff += f'\n  - {key}: {file1[key]}'
+            diff += f'\n  + {key}: {file2[key]}'
         if key in diff_file1:
-            diff += f'\n - {key}: {file1[key]}'
+            diff += f'\n  - {key}: {file1[key]}'
         if key in diff_file2:
-            diff += f'\n + {key}: {file2[key]}'
+            diff += f'\n  + {key}: {file2[key]}'
         result = itertools.chain('{', diff, '\n}')
     return ''.join(result)
 
