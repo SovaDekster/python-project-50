@@ -26,5 +26,8 @@ For this program you might need python = "^3.10" and prompt = "^0.4.1"
 ```
 
 ## Видео
-Video for third project step
+Video for gendiff with only .json format
 <a href="https://asciinema.org/a/534638" target="_blank"><img src="https://asciinema.org/a/534638.svg" /></a>
+
+Video for gendiff with .json and .yml format
+<a href="https://asciinema.org/a/535425" target="_blank"><img src="https://asciinema.org/a/535425.svg" /></a>
