@@ -1,4 +1,3 @@
-import json
 import pytest
 from gendiff import generate_diff
 
@@ -6,6 +5,7 @@ from gendiff import generate_diff
 @pytest.fixture
 def path1_json():
     return 'tests/fixtures/example_file1.json'
+
 
 @pytest.fixture
 def path2_json():

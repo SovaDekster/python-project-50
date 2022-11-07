@@ -14,10 +14,10 @@ reinstallation:
 	pip install --user --force-reinstall dist/*.whl
 
 lint:
-	poetry run flake8 gendiff
+	poetry run flake8 gendiff tests
 
 check:
-	poetry run pytest -v
+	poetry run pytest -vv
 
 test-coverage:
 	poetry run pytest --cov=gendiff tests/ --cov-report xml
