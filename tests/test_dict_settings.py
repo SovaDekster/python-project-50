@@ -1,29 +1,13 @@
-from gendiff.modules.dict_settings import set_bool_to_low
-from gendiff.modules.dict_settings import set_common_and_difference
-import pytest
+from gendiff.modules.dict_settings import set_bool_and_none_low, \
+    set_common_and_difference, new_dict_value, new_dict_key
 
 
-@pytest.fixture
-def file1():
-    return {
-        'host': "hexlet.io",
-        'timeout': 50,
-        'proxy': "123.234.53.22",
-        'follow': False
-    }
+def test_set_bool_and_none_low_empty_dict():
+    assert set_bool_and_none_low({}) == {}
 
 
-@pytest.fixture
-def file2():
-    return {
-        'timeout': 20,
-        'verbose': True,
-        'host': "hexlet.io"
-    }
-
-
-def test_set_bool_to_low(file1):
-    assert set_bool_to_low(file1) == {
+def test_set_bool_and_none_low(file1):
+    assert set_bool_and_none_low(file1) == {
         'host': "hexlet.io",
         'timeout': 50,
         'proxy': "123.234.53.22",
@@ -31,12 +15,33 @@ def test_set_bool_to_low(file1):
     }
 
 
-def test_set_bool_to_low_for_empty_dict():
-    assert set_bool_to_low({}) == {}
+def test_set_bool_and_none_low(file2):
+    assert set_bool_and_none_low(file2) == {
+        'timeout': 'null',
+        'verbose': 'true',
+        'host': "hexlet.io"
+    }
 
 
 def test_set_common_and_difference(file1, file2):
-    common, diff_file1, diff_file2 = set_common_and_difference(file1, file2)
+    common, removed, added = set_common_and_difference(file1, file2)
     assert common == {'host', 'timeout'}
-    assert diff_file1 == {'proxy', 'follow'}
-    assert diff_file2 == {'verbose'}
+    assert removed == {'proxy', 'follow'}
+    assert added == {'verbose'}
+
+
+def test_new_dict_value(file1):
+    assert new_dict_value(file1) == {
+        '  host': "hexlet.io",
+        '  timeout': 50,
+        '  proxy': "123.234.53.22",
+        '  follow': False
+    }
+
+
+def test_new_dict_value_is_not_dict(value='Grace'):
+    assert new_dict_value(value='Grace') == 'Grace'
+
+
+def test_new_dict_key(key='host'):
+    assert new_dict_key(key='host') == '  host'
