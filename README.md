@@ -31,3 +31,6 @@ Video for gendiff with only .json format
 
 Video for gendiff with .json and .yml format
 <a href="https://asciinema.org/a/535643" target="_blank"><img src="https://asciinema.org/a/535643.svg" /></a>
+
+Video for gendiff with recursion dicts
+<a href="https://asciinema.org/a/536020" target="_blank"><img src="https://asciinema.org/a/536020.svg" /></a>

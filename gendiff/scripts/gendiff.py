@@ -4,6 +4,7 @@
 
 import argparse
 from gendiff.modules.generate_diff import generate_diff
+from gendiff.modules.generate_diff import stylish
 
 
 def main():
@@ -18,6 +19,7 @@ def main():
         '--format',
         metavar='FORMAT',
         type=str,
+        default=stylish,
         help='set format of output'
     )
     args = parser.parse_args()
