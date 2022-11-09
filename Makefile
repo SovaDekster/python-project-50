@@ -8,9 +8,6 @@ publish:
 	poetry publish --dry-run
 
 package-install:
-	python3 -m pip install --user dist/*.whl --force-reinstall
-
-reinstallation:
 	pip install --user --force-reinstall dist/*.whl
 
 lint:

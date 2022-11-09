@@ -26,11 +26,14 @@ For this program you might need python = "^3.10" and prompt = "^0.4.1"
 ```
 
 ## Видео
-Video for gendiff with only .json format
+Video for gendiff with only .json file format
 <a href="https://asciinema.org/a/535645" target="_blank"><img src="https://asciinema.org/a/535645.svg" /></a>
 
-Video for gendiff with .json and .yml format
+Video for gendiff with .json and .yml file format
 <a href="https://asciinema.org/a/535643" target="_blank"><img src="https://asciinema.org/a/535643.svg" /></a>
 
 Video for gendiff with recursion dicts
 <a href="https://asciinema.org/a/536020" target="_blank"><img src="https://asciinema.org/a/536020.svg" /></a>
+
+Video for plain and stylish formats
+<a href="https://asciinema.org/a/536344" target="_blank"><img src="https://asciinema.org/a/536344.svg" /></a>

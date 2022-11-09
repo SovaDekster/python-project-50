@@ -61,7 +61,7 @@ def path2_yml():
 
 
 @pytest.fixture
-def file1_dict_plain():
+def file1_dict_simple():
     return {
         'timeout': 50,
         'follow': False,
@@ -71,7 +71,7 @@ def file1_dict_plain():
 
 
 @pytest.fixture
-def file2_dict_plain():
+def file2_dict_simple():
     return {
         'timeout': None,
         'host': "hexlet.io",
@@ -114,13 +114,33 @@ def file2_dict():
 
 @pytest.fixture
 def diff_example():
-    return {'  common': {
-        '+ follow': 'false', '  setting1': 'Value 1', '- setting2': 200,
-        '- setting3': 'true', '+ setting3': 'null', '+ setting4': 'blah blah',
-        '+ setting5': {'  key5': 'value5'}, '  setting6': {'  doge': {
-        '- wow': '', '+ wow': 'so much'}, '  key': 'value', '+ ops': 'vops'}},  # noqa E122
-        '  group1': {'- baz': 'bas', '+ baz': 'bars', '  foo': 'bar',
-        '- nest': {'  key': 'value'}, '+ nest': 'str'},
-        '- group2': {'  abc': 12345, '  deep': {'  id': 45}},
-        '+ group3': {'  deep': {'  id': {'  number': 45}}, '  fee': 100500}
-    }
+    return {'common': {'key': 'common', 'operation': 'nested', 'value': {
+        'follow': {'key': 'follow', 'operation': 'added', 'value': 'false'},
+        'setting1': {'key': 'setting1', 'operation': 'unchanged', 'value': 'Value 1'},
+        'setting2': {'key': 'setting2', 'operation': 'removed', 'value': '200'},
+        'setting3': {'key': 'setting3', 'operation': 'changed', 'old': 'true', 'new': 'null'},
+        'setting4': {'key': 'setting4', 'operation': 'added', 'value': 'blah blah'},
+        'setting5': {'key': 'setting5', 'operation': 'added', 'value': {'key5': 'value5'}},
+        'setting6': {'key': 'setting6', 'operation': 'nested', 'value': {
+        'doge': {'key': 'doge', 'operation': 'nested', 'value': {'wow': {
+        'key': 'wow', 'operation': 'changed', 'old': '', 'new': 'so much'}}},
+        'key': {'key': 'key', 'operation': 'unchanged', 'value': 'value'},
+        'ops': {'key': 'ops', 'operation': 'added', 'value': 'vops'}}}}},
+        'group1': {'key': 'group1', 'operation': 'nested', 'value': {
+        'baz': {'key': 'baz', 'operation': 'changed', 'old': 'bas', 'new': 'bars'},
+        'foo': {'key': 'foo', 'operation': 'unchanged', 'value': 'bar'},
+        'nest': {'key': 'nest', 'operation': 'changed', 'old': {'key': 'value'}, 'new': 'str'}}},
+        'group2': {'key': 'group2', 'operation': 'removed', 'value': {
+        'abc': '12345', 'deep': {'id': '45'}}},
+        'group3': {'key': 'group3', 'operation': 'added', 'value': {
+        'deep': {'id': {'number': '45'}}, 'fee': '100500'}}}
+
+
+@pytest.fixture
+def diff_simple_example():
+    return {
+        'follow': {'key': 'follow', 'operation': 'removed', 'value': 'false'},
+        'host': {'key': 'host', 'operation': 'unchanged', 'value': 'hexlet.io'},
+        'proxy': {'key': 'proxy', 'operation': 'removed', 'value': '123.234.53.22'},
+        'timeout': {'key': 'timeout', 'operation': 'changed', 'old': '50', 'new': 'null'},
+        'verbose': {'key': 'verbose', 'operation': 'added', 'value': 'true'}}

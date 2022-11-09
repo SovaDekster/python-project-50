@@ -12,4 +12,4 @@ def open_file(path):
 
 
 if __name__ == '__main__':
-    open_file(path)  # noqa: F821
+    open_file(path)

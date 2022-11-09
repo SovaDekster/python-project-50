@@ -1,39 +1,48 @@
-from gendiff.modules.dict_settings import set_bool_and_none_low, \
-    set_common_and_difference, new_dict_value, new_dict_key
+from gendiff.modules.dict_settings import set_common_and_difference, \
+    value_to_string
 
 
-def diff(file1, file2):  # noqa C901
-    file1 = set_bool_and_none_low(file1)
-    file2 = set_bool_and_none_low(file2)
-    common, removed, added = set_common_and_difference(file1, file2)
-    dict_sorted = sorted(common | removed | added)
-    diff_result = {}
-    for key in dict_sorted:
+def diff(dictionary1, dictionary2):
+    dict1 = value_to_string(dictionary1)
+    dict2 = value_to_string(dictionary2)
+    common, removed, added = set_common_and_difference(dict1, dict2)
+    keys = sorted(common | removed | added)
+    result = {}
+    for key in keys:
+        if key in common and dict1[key] != dict2[key]:
+            if (isinstance(dict1[key], dict) and isinstance(dict2[key], dict)):
+                description = {
+                    'key': key,
+                    'operation': 'nested',
+                    'value': diff(dict1[key], dict2[key])}
+                result[key] = description
+            else:
+                description = {
+                    'key': key,
+                    'operation': 'changed',
+                    'old': dict1[key],
+                    'new': dict2[key]}
+                result[key] = description
+        elif key in common and dict1[key] == dict2[key]:
+            description = {
+                'key': key,
+                'operation': 'unchanged',
+                'value': dict1[key]}
+            result[key] = description
         if key in added:
-            file2[key] = new_dict_value(file2[key])
-            key_new = new_dict_key(key, '+ ')
-            diff_result[key_new] = file2[key]
-        elif key in removed:
-            file1[key] = new_dict_value(file1[key])
-            key_new = new_dict_key(key, '- ')
-            diff_result[key_new] = file1[key]
-        else:
-            if isinstance(file1[key], dict) and isinstance(file2[key], dict):
-                key_new = new_dict_key(key)
-                diff_result[key_new] = diff(file1[key], file2[key])
-            elif any(
-                    [isinstance(file1[key], dict),
-                     isinstance(file2[key], dict),
-                     file1[key] != file2[key]]):
-                key_new1 = new_dict_key(key, '- ')
-                diff_result[key_new1] = new_dict_value(file1[key])
-                key_new2 = new_dict_key(key, '+ ')
-                diff_result[key_new2] = new_dict_value(file2[key])
-            elif file1[key] == file2[key]:
-                key_new = new_dict_key(key)
-                diff_result[key_new] = file1[key]
-    return diff_result
+            description = {
+                'key': key,
+                'operation': 'added',
+                'value': dict2[key]}
+            result[key] = description
+        if key in removed:
+            description = {
+                'key': key,
+                'operation': 'removed',
+                'value': dict1[key]}
+            result[key] = description
+    return result
 
 
 if __name__ == '__main__':
-    diff(file1, file2)  # noqa F821
+    diff(dictionary1, dictionary2)

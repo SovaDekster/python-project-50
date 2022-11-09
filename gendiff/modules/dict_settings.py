@@ -1,12 +1,18 @@
-def set_bool_and_none_low(file):
-    for key, value in file.items():
-        if isinstance(value, bool):
-            value = str(value).lower()
-            file[key] = value
+def value_to_string(value):
+    if not isinstance(value, dict):
         if value is None:
             value = 'null'
-            file[key] = value
-    return file
+            return value
+        if isinstance(value, bool):
+            value = str(value).lower()
+            return value
+        else:
+            value = str(value)
+            return value
+    for k, v in value.items():
+        v = value_to_string(v)
+        value[k] = v
+    return value
 
 
 def set_common_and_difference(file1, file2):
@@ -16,19 +22,19 @@ def set_common_and_difference(file1, file2):
     return common, removed, added
 
 
-def new_dict_value(value, replacer='  '):
+def modified_value(value):
     if isinstance(value, dict):
-        value = {f'{replacer}{k}': new_dict_value(v) for k, v in value.items()}
-    return value
-
-
-def new_dict_key(key, replacer='  '):
-    new_key = f'{replacer}{key}'
-    return new_key
+        return '[complex value]'
+    elif any(
+        [value == 'null',
+         value == 'true',
+         value == 'false']
+    ):
+        return value
+    return f"'{value}'"
 
 
 if __name__ == '__main__':
-    set_bool_and_none_low(file)  # noqa F821
-    set_common_and_difference(file1, file2)  # noqa F821
-    new_dict_key(key, replacer='  ')  # noqa F821
-    new_dict_value(value, replacer='  ')  # noqa F821
+    set_common_and_difference(file1, file2)
+    value_to_string(value)
+    modified_value(value)
