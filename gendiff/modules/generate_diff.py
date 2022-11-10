@@ -1,7 +1,8 @@
-from gendiff.modules.formatters.plain import plain
-from gendiff.modules.formatters.stylish import stylish
+from gendiff.modules.formatters.plain import plain_format
+from gendiff.modules.formatters.stylish import stylish_format
 from gendiff.modules.parser import open_file
 from gendiff.modules.diff import diff
+from gendiff.modules.formatters.json import json_format
 
 
 def generate_diff(path1, path2, formater='stylish'):
@@ -9,9 +10,11 @@ def generate_diff(path1, path2, formater='stylish'):
     dict2 = open_file(path2)
     diff_result = diff(dict1, dict2)
     if formater == 'plain':
-        return plain(diff_result)
+        return plain_format(diff_result)
     elif formater == 'stylish':
-        return stylish(diff_result)
+        return stylish_format(diff_result)
+    elif formater == 'json':
+        return json_format(diff_result)
 
 
 if __name__ == '__main__':

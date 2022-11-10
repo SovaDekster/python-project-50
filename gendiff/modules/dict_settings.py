@@ -7,7 +7,6 @@ def value_to_string(value):
             value = str(value).lower()
             return value
         else:
-            value = str(value)
             return value
     for k, v in value.items():
         v = value_to_string(v)
@@ -20,6 +19,22 @@ def set_common_and_difference(file1, file2):
     removed = file1.keys() - file2.keys()
     added = file2.keys() - file1.keys()
     return common, removed, added
+
+
+def json_value(value):
+    if not isinstance(value, dict):
+        if value == 'false':
+            return False
+        elif value == 'true':
+            return True
+        elif value == '' or value == 'null':
+            return None
+        else:
+            return value
+    for k, v in value.items():
+        v = json_value(v)
+        value[k] = v
+    return value
 
 
 def modified_value(value):
@@ -37,4 +52,5 @@ def modified_value(value):
 if __name__ == '__main__':
     set_common_and_difference(file1, file2)
     value_to_string(value)
+    json_value(value)
     modified_value(value)

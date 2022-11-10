@@ -6,7 +6,7 @@
 # Общее описание
 
 This is a second project for my hexlet studies.
-The project aims to show differences between different files in yaml and json format.
+It's goal is to show differences between different files in yaml and json format.
 
 You can clone the repository with git@github.com:SovaDekster/python-project-50.git or <https://github.com/SovaDekster/python-project-50>
 
@@ -20,9 +20,8 @@ For this program you might need python = "^3.10" and prompt = "^0.4.1"
 
    make build
 
-   make package-install - obviously, helps you to install package
+   make package-install - obviously, helps you to install whole package
 
-   make reinstallation - you know what it means
 ```
 
 ## Видео
@@ -37,3 +36,6 @@ Video for gendiff with recursion dicts
 
 Video for plain and stylish formats
 <a href="https://asciinema.org/a/536344" target="_blank"><img src="https://asciinema.org/a/536344.svg" /></a>
+
+Video for json format
+<a href="https://asciinema.org/a/536651" target="_blank"><img src="https://asciinema.org/a/536651.svg" /></a>
