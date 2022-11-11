@@ -3,7 +3,7 @@
 [![.github/workflows/gendiff_check.yml](https://github.com/SovaDekster/python-project-50/actions/workflows/gendiff_check.yml/badge.svg)](https://github.com/SovaDekster/python-project-50/actions/workflows/gendiff_check.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e69743a95478e51f3d5d/maintainability)](https://codeclimate.com/github/SovaDekster/python-project-50/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/e69743a95478e51f3d5d/test_coverage)](https://codeclimate.com/github/SovaDekster/python-project-50/test_coverage)
-# Общее описание ![just fox](https://w7.pngwing.com/pngs/239/854/png-transparent-fox-pop-art-painting-low-poly-fox-behance-illustration-lattice-fox-png-material-angle-animals-thumbnail.png)
+# Общее описание
 
 This is a second project for my hexlet studies.
 It's goal is to show differences between different files in yaml and json format.
