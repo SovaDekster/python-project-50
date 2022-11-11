@@ -1,21 +1,12 @@
-from gendiff.modules.formatters.plain import plain_format
-from gendiff.modules.formatters.stylish import stylish_format
-from gendiff.modules.parser import open_file
+from gendiff.modules.parse import open_file, parse
 from gendiff.modules.diff import diff
-from gendiff.modules.formatters.json import json_format
+from gendiff.modules.formatters.use_formatter import use_format
 
 
-def generate_diff(path1, path2, formater='stylish'):
-    dict1 = open_file(path1)
-    dict2 = open_file(path2)
-    diff_result = diff(dict1, dict2)
-    if formater == 'plain':
-        return plain_format(diff_result)
-    elif formater == 'stylish':
-        return stylish_format(diff_result)
-    elif formater == 'json':
-        return json_format(diff_result)
-
-
-if __name__ == '__main__':
-    generate_diff(path1, path2, formater)
+def generate_diff(path1, path2, format='stylish'):
+    data1, format1 = open_file(path1)
+    data2, format2 = open_file(path2)
+    dict1 = parse(data1, format1)
+    dict2 = parse(data2, format2)
+    result = diff(dict1, dict2)
+    return use_format(result, format)

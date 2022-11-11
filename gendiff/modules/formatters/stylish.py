@@ -1,32 +1,46 @@
 import itertools
 
 
-def stylish_format(final_result, replacer=' ', spaces_count=2):
-
-    def walk(val, depth):
-        space = replacer * spaces_count * (depth + 1)
-        result = ''
-        if not isinstance(val, dict):
-            return str(val)
-        for k, v in val.items():
-            if 'operation' in str(v):
-                if v['operation'] == 'unchanged' or v['operation'] == 'nested':
-                    result += f"\n{space}  {v['key']}: {walk(v['value'], depth + 2)}"
-                elif v['operation'] == 'changed':
-                    result += f"\n{space}- {v['key']}: {walk(v['old'], depth + 2)}"
-                    result += f"\n{space}+ {v['key']}: {walk(v['new'], depth + 2)}"
-                elif v['operation'] == 'added':
-                    result += f"\n{space}+ {v['key']}: {walk(v['value'], depth + 2)}"
-                elif v['operation'] == 'removed':
-                    result += f"\n{space}- {v['key']}: {walk(v['value'], depth + 2)}"
-            else:
-                result += f'\n{space}  {k}: {walk(v, depth + 2)}'
-        final_result = itertools.chain(
-            '{', result, '\n', [replacer * spaces_count * depth + '}']
-        )
-        return ''.join(final_result)
-    return walk(final_result, 0)
+def stylish_value(value, depth):
+    if isinstance(value, dict):
+        string = ''
+        for k, v in value.items():
+            space = '    ' * (depth + 1)
+            string += f"\n{space}{k}: {stylish_value(v, depth + 1)}"
+        line = itertools.chain('{', string, '\n', ['    ' * depth, '}'])
+        return ''.join(line)
+    else:
+        if isinstance(value, bool):
+            return str(value).lower()
+        elif value is None:
+            return 'null'
+        else:
+            return str(value)
 
 
-if __name__ == '__main__':
-    stylish_format(diff_result)
+def make_string(dictionary, key, depth, symbol='  '):
+    string = f"{'  ' * depth}{symbol}{dictionary['key']}: " \
+             f"{stylish_value(dictionary[key], depth + 1)}"
+    return string
+
+
+def stylish_format(diff_result):
+
+    def walk(node, depth, replacer='  '):
+        strings = ''
+        space = replacer * (depth + 1)
+        for k, v in node.items():
+            if v['operation'] == 'nested':
+                strings += f"\n{space * 2}{v['key']}: {walk(v['value'], depth + 1)}"
+            elif v['operation'] == 'unchanged':
+                strings += f"\n{space}{make_string(v, 'value', depth)}"
+            elif v['operation'] == 'changed':
+                strings += f"\n{space}{make_string(v, 'old', depth, '- ')}"
+                strings += f"\n{space}{make_string(v, 'new', depth, '+ ')}"
+            elif v['operation'] == 'removed':
+                strings += f"\n{space}{make_string(v, 'value', depth, '- ')}"
+            elif v['operation'] == 'added':
+                strings += f"\n{space}{make_string(v, 'value', depth, '+ ')}"
+        result = itertools.chain('{', strings, '\n', ['    ' * depth + '}'])
+        return ''.join(result)
+    return walk(diff_result, 0)
