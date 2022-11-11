@@ -1,6 +1,15 @@
 from gendiff.modules.formatters.json import json_format
 from gendiff.modules.formatters.plain import plain_format
 from gendiff.modules.formatters.stylish import stylish_format, make_string
+import pytest
+from ast import literal_eval
+
+
+@pytest.fixture
+def diff_example():
+    with open('tests/fixtures/diff_file.txt', 'r') as result:
+        diff_result = literal_eval(result.read())
+        return diff_result
 
 
 def test_json_format(diff_example):
