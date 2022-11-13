@@ -1,6 +1,6 @@
 import pytest
 from ast import literal_eval
-from gendiff.modules.diff import diff, set_common_and_difference
+from gendiff.diff import diff, set_common_and_difference
 
 
 parameters = [('file1', 'file2', 'tests/fixtures/simple_diff.txt'),

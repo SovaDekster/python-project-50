@@ -1,7 +1,7 @@
 import json
 
 
-def json_value(value):
+def json_value(value):  # Убрать не получается, из-за '' всё ломается
     if not isinstance(value, dict):
         if value == '':
             return None

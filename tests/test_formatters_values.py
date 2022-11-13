@@ -1,17 +1,6 @@
-from gendiff.modules.formatters.json import json_value
-from gendiff.modules.formatters.stylish import stylish_value
-from gendiff.modules.formatters.plain import plain_value
-
-
-def test_json_value(file1):
-    assert json_value(15) == 15
-    assert json_value('') is None
-    assert json_value(file1) == {
-        'host': "hexlet.io",
-        'timeout': 50,
-        'proxy': "123.234.53.22",
-        'follow': False
-    }
+from gendiff.formatters.stylish import stylish_value
+from gendiff.formatters.plain import plain_value
+from gendiff.formatters.json import json_value
 
 
 def test_stylish_value():
@@ -26,3 +15,14 @@ def test_plain_value(file1):
     assert plain_value(False) == 'false'
     assert plain_value(None) == 'null'
     assert plain_value('Grace') == "'Grace'"
+
+
+def test_json_value(file1):
+    assert json_value(15) == 15
+    assert json_value('') is None
+    assert json_value(file1) == {
+        'host': "hexlet.io",
+        'timeout': 50,
+        'proxy': "123.234.53.22",
+        'follow': False
+    }

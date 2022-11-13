@@ -3,14 +3,14 @@ import yaml
 import json
 
 
-def open_file(path):
-    extension = Path(path).suffix
-    if extension == '.json':
+def get_data(path):
+    extension = Path(path).suffix[1:]
+    if extension == 'json':
         format = 'json'
         data = open(path)
-    elif extension == '.yml' or extension == '.yaml':
+    elif extension == 'yml' or extension == 'yaml':
         format = 'yaml'
-        data = Path(path).read_text()
+        data = open(path)
     return data, format
 
 
@@ -19,3 +19,5 @@ def parse(data, format: str):
         return json.load(data)
     if format == 'yaml':
         return yaml.safe_load(data)
+    else:
+        raise Exception(f"No such method for format: {format}")

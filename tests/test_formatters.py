@@ -1,6 +1,6 @@
-from gendiff.modules.formatters.json import json_format
-from gendiff.modules.formatters.plain import plain_format
-from gendiff.modules.formatters.stylish import stylish_format, make_string
+from gendiff.formatters.json import json_format
+from gendiff.formatters.plain import plain_format
+from gendiff.formatters.stylish import stylish_format, make_string
 import pytest
 from ast import literal_eval
 

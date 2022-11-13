@@ -14,5 +14,4 @@ def parser_args():
         choices=['stylish', 'plain', 'json'],
         help='set format of output'
     )
-    args = parser.parse_args()
-    return args
+    return parser.parse_args()
