@@ -1,4 +1,6 @@
 import pytest
+"""This pytest.fixtures are different from fixtures files"""
+"""They were created specially for tests"""
 
 
 @pytest.fixture
@@ -17,77 +19,6 @@ def file2():
         'timeout': None,
         'verbose': True,
         'host': "hexlet.io"
-    }
-
-
-@pytest.fixture
-def path1_plain_json():
-    return 'tests/fixtures/example_file1.json'
-
-
-@pytest.fixture
-def path2_plain_json():
-    return 'tests/fixtures/example_file2.json'
-
-
-@pytest.fixture
-def path1_plain_yml():
-    return 'tests/fixtures/file1_example.yml'
-
-
-@pytest.fixture
-def path2_plain_yml():
-    return 'tests/fixtures/file2_example.yml'
-
-
-@pytest.fixture
-def path1_json():
-    return 'tests/fixtures/file1.json'
-
-
-@pytest.fixture
-def path2_json():
-    return 'tests/fixtures/file2.json'
-
-
-@pytest.fixture
-def path1_yml():
-    return 'tests/fixtures/file1.yml'
-
-
-@pytest.fixture
-def path2_yml():
-    return 'tests/fixtures/file2.yml'
-
-
-@pytest.fixture
-def file1_dict_simple():
-    return {
-        'timeout': 50,
-        'follow': False,
-        'host': "hexlet.io",
-        'proxy': "123.234.53.22"
-    }
-
-
-@pytest.fixture
-def file2_dict_simple():
-    return {
-        'timeout': None,
-        'host': "hexlet.io",
-        'verbose': True
-    }
-
-
-@pytest.fixture
-def diff_example_plain():
-    return {
-        '- follow': 'false',
-        '  host': 'hexlet.io',
-        '- proxy': '123.234.53.22',
-        '- timeout': 50,
-        '+ timeout': 'null',
-        '+ verbose': 'true'
     }
 
 

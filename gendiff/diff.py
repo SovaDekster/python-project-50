@@ -17,15 +17,13 @@ def diff(dict1, dict2):
             description = {'key': key,
                            'operation': 'added',
                            'value': dict2[key]}
-        elif key in common and dict1[key] == dict2[key]:
+        elif dict1[key] == dict2[key]:
             description = {
                 'key': key,
                 'operation': 'unchanged',
                 'value': dict1[key]}
         elif all(
-            [key in common,
-             dict1[key] != dict2[key],
-             isinstance(dict1[key], dict),
+            [isinstance(dict1[key], dict),
              isinstance(dict2[key], dict)]
         ):
             description = {
