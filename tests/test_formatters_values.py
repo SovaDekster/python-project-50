@@ -1,12 +1,13 @@
+import json
+import pytest
+from tests import FIXTURES_PATH
 from gendiff.formatters.stylish import value_to_str
 from gendiff.formatters.plain import plain_value
-import pytest
-import json
 
 
 @pytest.fixture
 def file1():
-    with open('tests/fixtures/example_file1.json', 'r') as result:
+    with open(f"{FIXTURES_PATH}/example_file1.json", 'r') as result:
         return json.load(result)
 
 

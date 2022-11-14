@@ -1,34 +1,23 @@
 import pytest
+import json
 from ast import literal_eval
 from gendiff.diff import diff
+from tests import FIXTURES_PATH
 
 
 @pytest.fixture
 def file1():
-    return {
-        'host': "hexlet.io",
-        'timeout': 50,
-        'proxy': "123.234.53.22",
-        'follow': False
-    }
+    with open(f"{FIXTURES_PATH}/example_file1.json", 'r') as result:
+        return json.load(result)
 
 
 @pytest.fixture
 def file2():
-    return {
-        'timeout': None,
-        'verbose': True,
-        'host': "hexlet.io"
-    }
+    with open(f"{FIXTURES_PATH}/example_file2.json", 'r') as result:
+        return json.load(result)
 
 
-parameters = [('file1', 'file2', 'tests/fixtures/simple_diff.txt')]
-
-
-@pytest.mark.parametrize('arg1, arg2, expected', parameters)
-def test_diff(arg1, arg2, expected, request):
-    arg1_value = request.getfixturevalue(arg1)
-    arg2_value = request.getfixturevalue(arg2)
-    with open(expected) as result:
+def test_diff(file1, file2):
+    with open(f"{FIXTURES_PATH}/simple_diff.txt", 'r') as result:
         diff_result = literal_eval(result.read())
-        assert diff(arg1_value, arg2_value) == diff_result
+        assert diff(file1, file2) == diff_result

@@ -1,30 +1,32 @@
-from gendiff.formatters.json import json_format
-from gendiff.formatters.plain import plain_format
-from gendiff.formatters.stylish import stylish_format, build_line
 import pytest
 from ast import literal_eval
+from tests import FIXTURES_PATH
+from gendiff.formatters.stylish import build_line
+from gendiff.formatters.use_formatter import apply_format
 
 
-@pytest.fixture
-def diff_example():
-    with open('tests/fixtures/diff_file.txt', 'r') as result:
-        diff_result = literal_eval(result.read())
-        return diff_result
-
-
-def test_json_format(diff_example):
-    with open('tests/fixtures/result_for_json_diff.txt', 'r') as result:
-        assert json_format(diff_example) == result.read()
-
-
-def test_plain_format(diff_example):
-    with open('tests/fixtures/result_for_plain_diff.txt', 'r') as result:
-        assert plain_format(diff_example) == result.read()
-
-
-def test_stylish_format(diff_example):
-    with open('tests/fixtures/result_for_stylish_diff.txt', 'r') as result:
-        assert stylish_format(diff_example) == result.read()
+@pytest.mark.parametrize("file, expected_path, format", [
+    (
+        f"{FIXTURES_PATH}/diff_file.txt",
+        f"{FIXTURES_PATH}/result_for_json_diff.txt",
+        'json'
+    ),
+    (
+        f"{FIXTURES_PATH}/diff_file.txt",
+        f"{FIXTURES_PATH}/result_for_plain_diff.txt",
+        'plain'
+    ),
+    (
+        f"{FIXTURES_PATH}/diff_file.txt",
+        f"{FIXTURES_PATH}/result_for_stylish_diff.txt",
+        'stylish'
+    ),
+])
+def test_apply_format(file, expected_path, format):
+    with open(expected_path, "r") as result:
+        open_file = open(file, "r")
+        diff_file = literal_eval(open_file.read())
+        apply_format(diff_file, format) == result.read()
 
 
 def test_build_line():
