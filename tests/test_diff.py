@@ -3,8 +3,26 @@ from ast import literal_eval
 from gendiff.diff import diff
 
 
-parameters = [('file1', 'file2', 'tests/fixtures/simple_diff.txt'),
-              ('file1_dict', 'file2_dict', 'tests/fixtures/diff_file.txt')]
+@pytest.fixture
+def file1():
+    return {
+        'host': "hexlet.io",
+        'timeout': 50,
+        'proxy': "123.234.53.22",
+        'follow': False
+    }
+
+
+@pytest.fixture
+def file2():
+    return {
+        'timeout': None,
+        'verbose': True,
+        'host': "hexlet.io"
+    }
+
+
+parameters = [('file1', 'file2', 'tests/fixtures/simple_diff.txt')]
 
 
 @pytest.mark.parametrize('arg1, arg2, expected', parameters)
