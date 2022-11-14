@@ -1,5 +1,5 @@
 import pytest
-from ast import literal_eval
+import json
 from tests import FIXTURES_PATH
 from gendiff.formatters.stylish import build_line
 from gendiff.formatters.use_formatter import apply_format
@@ -25,7 +25,7 @@ from gendiff.formatters.use_formatter import apply_format
 def test_apply_format(file, expected_path, format):
     with open(expected_path, "r") as result:
         open_file = open(file, "r")
-        diff_file = literal_eval(open_file.read())
+        diff_file = json.load(open_file)
         apply_format(diff_file, format) == result.read()
 
 

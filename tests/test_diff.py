@@ -1,6 +1,5 @@
 import pytest
 import json
-from ast import literal_eval
 from gendiff.diff import diff
 from tests import FIXTURES_PATH
 
@@ -19,5 +18,5 @@ def file2():
 
 def test_diff(file1, file2):
     with open(f"{FIXTURES_PATH}/simple_diff.txt", 'r') as result:
-        diff_result = literal_eval(result.read())
+        diff_result = json.load(result)
         assert diff(file1, file2) == diff_result
