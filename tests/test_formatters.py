@@ -1,6 +1,6 @@
 from gendiff.formatters.json import json_format
 from gendiff.formatters.plain import plain_format
-from gendiff.formatters.stylish import stylish_format, make_string
+from gendiff.formatters.stylish import stylish_format, build_line
 import pytest
 from ast import literal_eval
 
@@ -27,5 +27,5 @@ def test_stylish_format(diff_example):
         assert stylish_format(diff_example) == result.read()
 
 
-def test_make_string():
-    assert make_string({'key': 'verbose', 'any': 1}, 'key', 1) == '    verbose: verbose'
+def test_build_line():
+    assert build_line({'key': 'verbose', 'any': 1}, 'key', 1) == '    verbose: verbose'

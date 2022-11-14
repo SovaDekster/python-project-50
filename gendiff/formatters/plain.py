@@ -1,11 +1,11 @@
 def plain_value(value):
     if isinstance(value, dict):
         return '[complex value]'
-    elif value is None:
+    if value is None:
         return 'null'
-    elif isinstance(value, bool):
+    if isinstance(value, bool):
         return str(value).lower()
-    elif isinstance(value, int):
+    if isinstance(value, int):
         return value
     return f"'{value}'"
 

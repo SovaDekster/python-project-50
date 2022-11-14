@@ -1,6 +1,6 @@
 import pytest
 from ast import literal_eval
-from gendiff.diff import diff, set_common_and_difference
+from gendiff.diff import diff
 
 
 parameters = [('file1', 'file2', 'tests/fixtures/simple_diff.txt'),
@@ -14,10 +14,3 @@ def test_diff(arg1, arg2, expected, request):
     with open(expected) as result:
         diff_result = literal_eval(result.read())
         assert diff(arg1_value, arg2_value) == diff_result
-
-
-def test_set_common_and_difference(file1, file2):
-    common, removed, added = set_common_and_difference(file1, file2)
-    assert common == {'host', 'timeout'}
-    assert removed == {'proxy', 'follow'}
-    assert added == {'verbose'}

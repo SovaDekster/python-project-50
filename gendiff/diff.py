@@ -1,13 +1,7 @@
-def set_common_and_difference(dict1, dict2):
-    common = dict1.keys() & dict2.keys()
-    added = dict2.keys() - dict1.keys()
-    removed = dict1.keys() - dict2.keys()
-    return common, removed, added
-
-
 def diff(dict1, dict2):
     keys = sorted(dict1.keys() | dict2.keys())
-    common, removed, added = set_common_and_difference(dict1, dict2)
+    added = dict2.keys() - dict1.keys()
+    removed = dict1.keys() - dict2.keys()
     result = {}
     for key in keys:
         if key in removed:
