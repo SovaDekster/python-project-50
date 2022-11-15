@@ -23,8 +23,7 @@ from gendiff.formatters.use_formatter import apply_format
     ),
 ])
 def test_apply_format(file, expected_path, format):
-    with open(expected_path, "r") as result:
-        open_file = open(file, "r")
+    with open(expected_path, "r") as result, open(file, "r") as open_file:
         diff_file = json.load(open_file)
         apply_format(diff_file, format) == result.read()
 

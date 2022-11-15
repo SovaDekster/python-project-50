@@ -1,13 +1,13 @@
 import itertools
 
 
-def value_to_str(value, depth):
+def value_to_str(value, depth, indent='    '):
     if isinstance(value, dict):
-        string = ''
+        result = []
         for k, v in value.items():
-            space = '    ' * (depth + 1)
-            string += f"\n{space}{k}: {value_to_str(v, depth + 1)}"
-        line = itertools.chain('{', string, '\n', ['    ' * depth, '}'])
+            space = indent * (depth + 1)
+            result.append(f"\n{space}{k}: {value_to_str(v, depth + 1)}")
+        line = itertools.chain('{', result, '\n', [indent * depth, '}'])
         return ''.join(line)
     else:
         if isinstance(value, bool):
@@ -17,15 +17,15 @@ def value_to_str(value, depth):
     return str(value)
 
 
-def build_line(dictionary, key, depth, symbol='  '):
-    string = f"{'  ' * depth}{symbol}{dictionary['key']}: " \
-             f"{value_to_str(dictionary[key], depth + 1)}"
-    return string
+def build_line(data, key, depth, indent='  '):
+    line = f"{'  ' * depth}{indent}{data['key']}: " \
+           f"{value_to_str(data[key], depth + 1)}"
+    return line
 
 
 def stylish_format(diff_result):
 
-    def walk(node, depth=0, replacer='  '):
+    def walk(node, depth=0, replacer='  ', indent='    '):
         strings = []
         space = replacer * (depth + 1)
         for k, v in node.items():
@@ -40,6 +40,6 @@ def stylish_format(diff_result):
                 strings.append(f"\n{space}{build_line(v, 'value', depth, '- ')}")
             elif v['operation'] == 'added':
                 strings.append(f"\n{space}{build_line(v, 'value', depth, '+ ')}")
-        result = itertools.chain('{', strings, '\n', ['    ' * depth + '}'])
+        result = itertools.chain('{', strings, '\n', [indent * depth + '}'])
         return ''.join(result)
     return walk(diff_result)
