@@ -13,16 +13,17 @@ def to_str(value):
 def plain_format(diff_result: dict):
 
     def walk(node, path=''):
-        result = ''
+        result = []
         for k, v in node.items():
             current_path = f"{path}{v['key']}"
+            start_line = f"Property '{current_path}'"
             if v['operation'] == 'changed':
-                result += f"Property '{current_path}' was updated. From {to_str(v['old'])} to {to_str(v['new'])}\n"
+                result.append(f"{start_line} was updated. From {to_str(v['old'])} to {to_str(v['new'])}\n")
             elif v['operation'] == 'nested':
-                result += walk(v['value'], current_path + '.') + '\n'
+                result.append(walk(v['value'], current_path + '.') + '\n')
             elif v['operation'] == 'removed':
-                result += f"Property '{current_path}' was removed\n"
+                result.append(f"{start_line} was removed\n")
             elif v['operation'] == 'added':
-                result += f"Property '{current_path}' was added with value: {to_str(v['value'])}\n"
-        return result[:-1]
+                result.append(f"{start_line} was added with value: {to_str(v['value'])}\n")
+        return ''.join(result)[:-1]
     return walk(diff_result)

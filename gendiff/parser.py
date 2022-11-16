@@ -3,7 +3,7 @@ import yaml
 import json
 
 
-def get_content_and_extension(path):
+def get_content(path):
     with open(path, "r") as data:
         return parse(data.read(), Path(path).suffix[1:])
 

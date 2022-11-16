@@ -3,26 +3,26 @@ def diff(dict1, dict2):
     added = dict2.keys() - dict1.keys()
     removed = dict1.keys() - dict2.keys()
     result = {}
-    for key in keys:
-        description = {'key': key}
-        if key in removed:
+    for k in keys:
+        description = {'key': k}
+        if k in removed:
             description['operation'] = 'removed'
-            description['value'] = dict1[key]
-        elif key in added:
+            description['value'] = dict1[k]
+        elif k in added:
             description['operation'] = 'added'
-            description['value'] = dict2[key]
-        elif dict1[key] == dict2[key]:
+            description['value'] = dict2[k]
+        elif dict1[k] == dict2[k]:
             description['operation'] = 'unchanged'
-            description['value'] = dict1[key]
+            description['value'] = dict1[k]
         elif all(
-            [isinstance(dict1[key], dict),
-             isinstance(dict2[key], dict)]
+            [isinstance(dict1[k], dict),
+             isinstance(dict2[k], dict)]
         ):
             description['operation'] = 'nested'
-            description['value'] = diff(dict1[key], dict2[key])
+            description['value'] = diff(dict1[k], dict2[k])
         else:
             description['operation'] = 'changed'
-            description['old'] = dict1[key]
-            description['new'] = dict2[key]
-        result[key] = description
+            description['old'] = dict1[k]
+            description['new'] = dict2[k]
+        result[k] = description
     return result
