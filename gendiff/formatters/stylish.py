@@ -28,15 +28,16 @@ def stylish_format(diff_result):
         space = replacer * (depth + 1)
         for k, v in node.items():
             if v['operation'] == 'nested':
-                lines.append(f"{space * 2}{v['key']}: {walk(v['value'], depth + 1)}")
-            elif v['operation'] == 'unchanged':
+                lines.append(f"{space * 2}{v['key']}: "
+                             f"{walk(v['value'], depth + 1)}")
+            if v['operation'] == 'unchanged':
                 lines.append(f"{space}{build_line(v, 'value', depth)}")
-            elif v['operation'] == 'changed':
+            if v['operation'] == 'changed':
                 lines.append(f"{space}{build_line(v, 'old', depth, '- ')}")
                 lines.append(f"{space}{build_line(v, 'new', depth, '+ ')}")
-            elif v['operation'] == 'removed':
+            if v['operation'] == 'removed':
                 lines.append(f"{space}{build_line(v, 'value', depth, '- ')}")
-            elif v['operation'] == 'added':
+            if v['operation'] == 'added':
                 lines.append(f"{space}{build_line(v, 'value', depth, '+ ')}")
         result = itertools.chain('{', lines, [indent * depth + '}'])
         return "\n".join(result)

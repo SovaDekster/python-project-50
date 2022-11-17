@@ -29,4 +29,5 @@ def test_apply_format(file, expected_path, format):
 
 
 def test_build_line():
-    assert build_line({'key': 'verbose', 'any': 1}, 'key', 1) == '    verbose: verbose'
+    assert build_line({'key': 'verbose', 'any': 1},
+                      'key', 1) == '    verbose: verbose'
