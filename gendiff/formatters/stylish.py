@@ -28,15 +28,20 @@ def walk(node, depth=0, replacer='  ', indent='    '):
         if v['operation'] == 'nested':
             lines.append(f"{space * 2}{v['key']}: "
                          f"{walk(v['value'], depth + 1)}")
+            continue
         if v['operation'] == 'changed':
             lines.append(f"{space}{build_line(v, 'old', depth, '- ')}")
             lines.append(f"{space}{build_line(v, 'new', depth, '+ ')}")
+            continue
         if v['operation'] == 'removed':
             lines.append(f"{space}{build_line(v, 'value', depth, '- ')}")
+            continue
         if v['operation'] == 'added':
             lines.append(f"{space}{build_line(v, 'value', depth, '+ ')}")
+            continue
         if v['operation'] == 'unchanged':
             lines.append(f"{space}{build_line(v, 'value', depth)}")
+            continue
     result = itertools.chain('{', lines, [indent * depth + '}'])
     return "\n".join(result)
 
