@@ -1,7 +1,9 @@
 import itertools
+replacer = '  '
+indent = '    '
 
 
-def value_to_str(value, depth, indent='    '):
+def value_to_str(value, depth):
     if isinstance(value, dict):
         result = []
         for k, v in value.items():
@@ -21,7 +23,7 @@ def build_line(data, key, depth, indent='  '):
            f"{value_to_str(data[key], depth + 1)}"
 
 
-def walk(node, depth=0, replacer='  ', indent='    '):
+def walk(node, depth=0):
     lines = []
     space = replacer * (depth + 1)
     for _, v in node.items():
